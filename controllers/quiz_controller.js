@@ -1,3 +1,8 @@
+//GET /author
+exports.author = function(req, res){
+	res.render('author', {autor: 'Isabel Ríos'})
+}
+
 //GET /quizes/question
 exports.question = function(req, res){
 	res.render('quizes/question', {pregunta: 'Capital de Italia'});
@@ -11,3 +16,4 @@ exports.answer = function (req, res){
 		res.render('quizes/answer', {respuesta: 'Incorrecto'});
 	}
 };
+
