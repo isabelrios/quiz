@@ -1,4 +1,6 @@
 var models = require('../models/models.js');
+
+
 //GET /author
 exports.author = function(req, res){
 	res.render('author', {autor: 'Isabel Ríos'})
@@ -6,10 +8,24 @@ exports.author = function(req, res){
 
 //GET /quizes
 exports.index = function(req, res){
-  models.Quiz.findAll().then(function (quizes) {
-  	res.render('quizes/index.ejs', { quizes: quizes})
-  })
+  //models.Quiz.findAll().then(function (quizes) {
+  	//res.render('quizes/index.ejs', { quizes: quizes})})
+	var search = req.params.search;
+	if(req.query.search) {
+		var filtro = (req.query.search || '').replace(" ", "%");
+		models.Quiz.findAll({where:["pregunta like ?", '%'+filtro+'%'],order:'pregunta ASC'}).then(function (quizes){
+		res.render('quizes/index', {quizes: quizes});
+}).catch(function (error) { next(error);});
+
+} else {
+
+	models.Quiz.findAll().then(function (quizes){
+	res.render('quizes/index', {quizes: quizes});
+}).catch(function (error) { next(error);});
+}
+
 };
+
 
 //GET /quizes/:id
 exports.show = function(req, res){
