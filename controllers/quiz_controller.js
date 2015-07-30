@@ -5,17 +5,27 @@ exports.new = function(req, res){
 	var quiz = models.Quiz.build( //crea objeto quiz
 		{pregunta: "Pregunta", respuesta: "Respuesta"}
 		);
-		res.render('quizes/new', {quiz:quiz});
+		res.render('quizes/new', {quiz:quiz, errors: []});
 };
 
 //POST /quizes/create
 exports.create = function (req, res){
-	var quiz = models.Quiz.build(req.body.quiz);
+	var quiz = models.Quiz.build( req.body.quiz );
 
+	quiz
+	.validate()
+	.then(
+		function (err){
+			if (err) {
+				res.render('quizes/new', {quiz: quiz, errors: err.errors});
+			} else {
 //guarda en DB los campos pregunta y respuesta de quiz
-	quiz.save({fields: ["pregunta","respuesta"]}).then(function(){
-		res.redirect('/quizes');
-	}) //Redirección HTTP (URL relativo) lista de preguntas
+			quiz
+			.save({fields: ["pregunta","respuesta"]})
+			.then(function(){ res.redirect('/quizes')}) //Redirección HTTP (URL relativo) lista de preguntas
+		}
+	}
+	);
 };
 
 //GET /author
@@ -31,7 +41,7 @@ exports.index = function(req, res){
 	if(req.query.search) {
 		var filtro = (req.query.search || '').replace(" ", "%");
 		models.Quiz.findAll({where:["pregunta like ?", '%'+filtro+'%'],order:'pregunta ASC'}).then(function (quizes){
-		res.render('quizes/index', {quizes: quizes});
+		res.render('quizes/index', {quizes: quizes, errors: []});
 }).catch(function (error) { next(error);});
 
 } else {
@@ -47,7 +57,7 @@ exports.index = function(req, res){
 //GET /quizes/:id
 exports.show = function(req, res){
   models.Quiz.findById(req.params.quizId).then(function (quiz){	
-	res.render('quizes/show', { quiz: quiz});
+	res.render('quizes/show', { quiz: quiz, errors: []});
   
   })
 };
@@ -57,7 +67,7 @@ exports.answer = function (req, res){
   models.Quiz.findById(req.params.quizId).then(function (quiz){	
 	if (req.query.respuesta === quiz.respuesta){
 		res.render('quizes/answer', 
-			{ quiz: quiz, respuesta: 'Correcto'});
+			{ quiz: quiz, respuesta: 'Correcto', errors: []});
 	} else {
 		res.render('quizes/answer', 
 			{ quiz: quiz, respuesta: 'Incorrecto'});
