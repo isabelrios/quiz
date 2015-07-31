@@ -81,7 +81,7 @@ exports.answer = function (req, res){
   models.Quiz.findById(req.params.quizId).then(function (quiz){	
 	if (req.query.respuesta === quiz.respuesta){
 		res.render('quizes/answer', 
-			{ quiz: quiz, respuesta: 'Correcto', errors: []});
+			{ quiz: quiz, respuesta: 'Correcto'});
 	} else {
 		res.render('quizes/answer', 
 			{ quiz: quiz, respuesta: 'Incorrecto'});
@@ -93,7 +93,7 @@ exports.answer = function (req, res){
 exports.search = function (req, res) {
 	//res.render('quizes/search', {busqueda: 'Resultado'})
 	models.Quiz.findAll({where:["pregunta like ?", search], order:"pregunta"}).then(function (quiz){
-		res.render('quizes/search', { quiz: quiz});
+		res.render('quizes/search', { quiz: quiz, errors: []});
 	}
 		)};
 	
