@@ -15,7 +15,7 @@ router.get('/quizes/:quizId(\\d+)', quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 //router.get('/author', quizController.author);
-router.get('/author', function (req, res) {
+router.get('/', function (req, res) {
 	res.render('author.ejs', { title: 'Creditos', errors: []});
 });
 
