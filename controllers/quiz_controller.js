@@ -104,7 +104,7 @@ exports.update = function(req, res){
 
 	req.quiz
 	.validate()
-	.then()
+	.then(
 		function (err){
 			if (err){
 				res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
