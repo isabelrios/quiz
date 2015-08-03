@@ -125,4 +125,10 @@ exports.search = function (req, res) {
 		res.render('quizes/search', { quiz: quiz, errors: []});
 	}
 		)};
-	
+
+exports.destoy = function (req, res){
+	req.quiz.destroy().then(function(){
+		res.redirect('/quizes');
+
+	}).catch(function (error){next(error)});
+};
