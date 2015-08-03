@@ -55,7 +55,7 @@ exports.index = function(req, res){
 	if(req.query.search) {
 		var filtro = (req.query.search || '').replace(" ", "%");
 		models.Quiz.findAll({where:["pregunta like ?", '%'+filtro+'%'],order:'pregunta ASC'}).then(function (quizes){
-		res.render('quizes/index', {quizes: quizes, errors: []});
+		res.render('quizes/index.ejs', {quizes: quizes, errors: []});
 }).catch(function (error) { next(error);});
 
 } else {
