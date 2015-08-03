@@ -126,9 +126,10 @@ exports.search = function (req, res) {
 	}
 		)};
 
+//Delete /quizes/:id
 exports.destoy = function (req, res){
 	req.quiz.destroy().then(function(){
 		res.redirect('/quizes');
 
-	}).catch(function (error){next(error)});
+	}).catch(function (error){next(error);});
 };
