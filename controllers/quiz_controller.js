@@ -93,7 +93,7 @@ exports.answer = function (req, res){
 exports.edit = function (req, res){
 	var quiz = req.quiz; //autoload de instacia de quiz
 
-	res.render('quizes/edit', {quiz: quiz, erros:[]});
+	res.render('quizes/edit', {quiz: quiz, errors: []});
 
 };
 
