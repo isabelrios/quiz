@@ -43,8 +43,8 @@ exports.create = function (req, res){
 };
 
 //GET /author
-exports.author = function(req, res){
-    res.render('author', {autor: 'Isabel Ríos'})
+exports.author = function (req, res){
+    res.render('author', {autor: 'Isabel Ríos', errors: []});
 };
 
 //GET /quizes
