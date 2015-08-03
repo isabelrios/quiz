@@ -22,4 +22,7 @@ router.post('/quizes/create', quizController.create);
 router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
 router.put('/quizes/:quizId(\\d+)', quizController.update);
 
+//Autoload de comandos con :quizId
+router.param('quizId', quizController.load);
+
 module.exports = router;
