@@ -2,7 +2,7 @@
 
 module.exports = function (sequelize, DataTypes) {
 	return sequelize.define(
-		'comment', 
+		'Comment', 
 		{ texto: {
 			type: DataTypes.STRING,
 			validate: { notEmpty: {msg: "-> Falata Comentario"}}
@@ -14,6 +14,6 @@ module.exports = function (sequelize, DataTypes) {
 
 		},
 
-		{ tableName: 'comment'});
+		{ tableName: 'Comment'});
 
 }
