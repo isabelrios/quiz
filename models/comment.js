@@ -8,8 +8,8 @@ module.exports = function (sequelize, DataTypes) {
 			validate: { notEmpty: {msg: "-> Falata Comentario"}}
 		}
 
-		}
+		},
 
-		);
+		{ tableName: 'Comment'});
 
 }
