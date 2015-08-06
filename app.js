@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 
@@ -15,16 +16,28 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(partials());
+
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //Quitado: { extended: false }
-app.use(cookieParser());
+app.use(cookieParser('Quiz 2015'));
+app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//helpers dinamicos
+app.use(function(req,res,next){
+    //guardar path en session.redir para despues de login
+    if(!req.path.match(/\/login|\/logout/)){
+    req.session.redir=req.path;}
+    //hacer visible req.session en las vistas
+    res.locals.session=req.session;
+    next();
+});
+
+app.use(partials());
 app.use('/', routes);
 
 // catch 404 and forward to error handler
