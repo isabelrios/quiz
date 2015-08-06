@@ -42,7 +42,7 @@ app.use(function (req,res,next){
                 delete req.session.user;
                 delete req.session.horaUltimoAcceso;
                 req.session.errors = [
-                    {   'message': 'Auto-logout ('+Math.round(inactividad/1000)+' segundos de inactividad)' }
+                    {   'message': 'Auto-logout: Tiempo de sesión expirado por inactividad' }
                 ];
                 res.redirect('/login');
                 return;

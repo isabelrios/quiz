@@ -3,14 +3,14 @@ var models = require('../models/models.js');
 // Autoload factoriza el código si la ruta incluye :quizId
 exports.load = function(req, res, next, quizId) {
     models.Quiz.find({
-        where:{id:Number(quizId)},
-        include:[{model:models.Comment}]
+        where: {id:Number(quizId)},
+        include:[{model: models.Comment}]
     }).then(function (quiz){
 
         if (quiz) {
             req.quiz = quiz;
             next();
-        } else {
+        } else {s
             next(new Error('No existe quizID=' + quizId));
         }
     }).catch(function (error) {
@@ -46,10 +46,6 @@ exports.create = function (req, res){
     );
 };
 
-//GET /author
-//exports.author = function (req, res){
-//    res.render('/author', {autor: 'Isabel Ríos', errors: []});
-//};
 
 //GET /quizes
 exports.index = function(req, res){
