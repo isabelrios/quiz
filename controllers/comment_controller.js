@@ -6,7 +6,7 @@ exports.load = function (req, res, next, commentId) {
 		where: {
 			id: Number(commentId)
 		}
-	}).then(function (comment)){
+	}).then(function (comment){
 		if (comment) {
 			req.comment = comment;
 			next();
@@ -35,7 +35,7 @@ exports.create = function (req, res) {
 	}else{
 		comment
 		.save()
-		.then(function (){ res.redirect('/quizes/' + req.params.quizId)})
+		.then(function (){ res.redirect('/quizes/' + req.params.quizId);})
 	}}).catch(function (error){next(error)});
 };
 
