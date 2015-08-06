@@ -12,8 +12,9 @@ module.exports = function (sequelize, DataTypes) {
 		  	defaultValue: false
 		  }
 
-		},
+		//},
 
-		{ tableName: 'Comment'});
-
+		//{ tableName: 'Comment'});
+		}
+	);
 }
