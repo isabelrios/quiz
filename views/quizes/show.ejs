@@ -13,7 +13,7 @@
   <p><strong>Comentarios:</strong></p>
       
       <%for(index in quiz.comments){%>
-        <%if(quiz.omments[index].publicado || session.user){%>
+        <%if(quiz.comments[index].publicado || session.user){%>
           
           <p>- <%=quiz.comments[index].texto%> 
 
