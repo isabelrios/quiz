@@ -32,6 +32,26 @@ app.use(function (req,res,next){
     //guardar path en session.redir para despues de login
     if(!req.path.match(/\/login|\/logout/)){
     req.session.redir=req.path;}
+    
+    if (req.session.user) {
+        var t = new Date();
+        var actual = t.getTime();
+        if (req.session.horaUltimoAcceso) {
+            var inactividad = actual-req.session.horaUltimoAcceso;
+            if (inactividad > 120000) {
+                delete req.session.user;
+                delete req.session.horaUltimoAcceso;
+                req.session.errors = [
+                    {   'message': 'Auto-logout ('+Math.round(inactividad/1000)+' segundos de inactividad)' }
+                ];
+                res.redirect('/login');
+                return;
+            }
+    }
+
+    req.session.horaUltimoAcceso = actual;
+    }
+
     //hacer visible req.session en las vistas
     res.locals.session=req.session;
     next();
