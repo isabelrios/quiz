@@ -12,12 +12,12 @@
   
   <p><strong>Comentarios:</strong></p>
       
-      <%for(index in quiz.comment){%>
-        <%if(quiz.comment[index].publicado || session.user){%>
+      <%for(index in quiz.Comment){%>
+        <%if(quiz.Comment[index].publicado || session.user){%>
           
-          <p>- <%=quiz.comment[index].texto%> 
+          <p>- <%=quiz.Comment[index].texto%> 
 
-          <%if(session.user && !quiz.comment[index].publicado){%>
+          <%if(session.user && !quiz.Comment[index].publicado){%>
             <a href="/quizes/<%= quiz.id %>/comments/<%quiz.comments[index].id%>/publish">
                                                 <button>Publicar</button></a>
 
